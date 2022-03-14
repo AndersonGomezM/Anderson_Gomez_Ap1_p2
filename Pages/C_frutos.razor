@@ -1,0 +1,100 @@
+@page "/Consulta_frutos"
+
+<PageTitle>Consulta</PageTitle>
+
+<EditForm Model="producto">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h3> Consulta de Productos </h3>
+        </div>
+
+        <div class="card-body">
+
+            <form>
+                <div class="row">
+
+                    <div class="col">
+                        <InputSelect class="col" @bind-Value="filtro">
+                            <option value="1">ProductoId</option>
+                            <option value="2">Descripción</option>
+                            <option value="3">Fecha de Caducidad</option>
+                        </InputSelect>
+                    </div>
+
+                    <div class="col">
+                        <label  class="col-group-text" > Busqueda </label>
+                        <InputText class="col-auto" @bind-Value="Criterio"/>
+                    </div>
+                    
+                    <div class="col">
+                        <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <span class="oi oi-magnifying-glass" ></span> Buscar </button>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+
+        <table class="table table-bordered" >
+            <thead class="thead">
+                <tr class="table">
+
+                    <th>ProductoId</th>
+                    <th>Descripci&oacute;n</th>
+                    <th>Existencia</th>
+                    <th>Costo</th>
+                    <th>Valor Inventario</th>
+                    <th>Precio</th>
+                    <th>Ganancia</th>
+                    <th>Fecha de Caducidad</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in producto)
+                {
+                    <tr>
+                        <td>@item.ProductoId</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.FechaCaducidad.ToString("dd-MM-yyyy")</td>
+                        <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_productos/@item.ProductoId"> Ver </a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</EditForm>
+
+@code {
+    
+    public string? filtro { get; set; }
+
+    public string? Criterio { get; set; }
+
+    public List<Productos> producto { get; set; } = new List<Productos>();
+
+    [Inject]
+    public ProductosBLL productosBLL { get; set; }
+
+    private void Buscar()
+    {
+        if(Criterio!=null)
+        {
+            switch(filtro)
+            {
+                case "1":
+                    producto = productosBLL.GetList(e => e.ProductoId == int.Parse(Criterio));
+                    break;
+                case "2":
+                    producto = productosBLL.GetList(e => e.Descripcion.ToLower().Contains(Criterio.ToLower()));
+                    break;
+            }
+        }
+        else
+            producto = productosBLL.GetList(p => true);
+    }
+}
