@@ -21,14 +21,5 @@ namespace Anderson_Gomez_Ap1_p2.Entidades
         public double Precio { get; set; }
 
         public int Empaque { get; set; }
-
-        public ProductosDetalle(string? descripcionDetalle, string? presentacion, double cantidad, double precio, int empaque)
-        {
-            this.DescripcionDetalle = descripcionDetalle;
-            this.Presentacion = presentacion;
-            this.Cantidad = cantidad;
-            this.Precio = precio;
-            this.Empaque = empaque;
-        }
     }
 }

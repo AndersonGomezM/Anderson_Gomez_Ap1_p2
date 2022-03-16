@@ -35,6 +35,6 @@ namespace Anderson_Gomez_Ap1_p2.Entidades
         public DateTime FechaCaducidad { get; set; } = DateTime.Now;
 
         [ForeignKey("ProductoId")]
-        public virtual List<ProductosDetalle>? ProductosDetalle { get; set; } = new List<ProductosDetalle>();
+        public virtual List<ProductosDetalle> ProductosDetalle { get; set; } = new List<ProductosDetalle>();
     }
 }

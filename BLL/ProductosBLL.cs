@@ -123,7 +123,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
         public List<Productos> GetProductos()
         {
-            List<Productos>? lista = new List<Productos>();
+            List<Productos> lista = new List<Productos>();
 
             try
             {
@@ -139,11 +139,27 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
         public List<Productos> GetList(Expression<Func<Productos, bool>> criterio)
         {
-            List<Productos>? lista = new List<Productos>();
+            List<Productos> lista = new List<Productos>();
 
             try
             {
                 lista = _contexto.Productos.Where(criterio).ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return lista;
+        }
+
+        public List<ProductosDetalle> GetDetalles(Expression<Func<ProductosDetalle, bool>> criterio)
+        {
+            List<ProductosDetalle> lista = new List<ProductosDetalle>();
+
+            try
+            {
+                lista = _contexto.ProductosDetalles.Where(criterio).ToList();
             }
             catch (Exception)
             {

@@ -1,11 +1,11 @@
 @page "/Registro_frutos"
-@page "/Registro_frutos/{ProductoId:int}"
+@page "/Registro_frutos/{FrutosId:int}"
 
 @inject IToastService toast
 
 <PageTitle>Registro</PageTitle>
 
-<EditForm Model="producto" >
+<EditForm Model="frutos" >
 
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -19,13 +19,13 @@
 
             <div class="card-body">
 
-                @* ProductoId *@
+                @* FrutosId *@
                 <div>
                     <div class="col mb-3">
                         <label> Producto Id </label>
                         <div class="row-5">
-                            <InputNumber class="col-control" @bind-Value="producto.ProductoId" />
-                            <ValidationMessage For="@(() => producto.ProductoId)" />
+                            <InputNumber class="col-control" @bind-Value="frutos.FrutosId" />
+                            <ValidationMessage For="@(() => frutos.FrutosId)" />
 
                             <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar" > <span class="oi oi-magnifying-glass" ></span> </button>
                         </div>
@@ -36,8 +36,8 @@
                 <div Class="col mb-3">
                     <label class="row-text"> Fecha </label>
                     <div class="row-5">
-                        <input type="date" @bind-value="producto.FechaCaducidad" />
-                        <ValidationMessage For="@(() => producto.FechaCaducidad)" />
+                        <input type="date" @bind-value="frutos.Fecha" />
+                        <ValidationMessage For="@(() => frutos.Fecha)" />
                     </div>
                 </div>
 
@@ -45,8 +45,8 @@
                 <div class="col mb-3">
                     <label> Concepto </label>
                     <div class="row">
-                        <InputText class="row-control" @bind-Value="producto.Descripcion" placeholder="Insete aquí lo que esta haciendo" />
-                        <ValidationMessage For="@(() =>producto.Descripcion)" />
+                        <InputText class="row-control" @bind-Value="frutos.Concepto" placeholder="Insete aquí lo que esta haciendo" />
+                        <ValidationMessage For="@(() => frutos.Concepto)" />
                     </div>
                 </div>
                 
@@ -66,12 +66,20 @@
                                 
                                 <div class="col">
                                     <label> Producto </label>
-                                    <InputText class="col-control" @bind-Value="Descripcion" placeholder="Descripción del detalle" />
+                                    <InputSelect class="col-group col-30 lg" @bind-Value="frutosDetalle.DetallesId">
+                                
+                                    @foreach(var item in productos)
+                                    {
+                                        <option value="@item.ProductoId">@item.Descripcion</option>
+                                        frutosDetalle.Producto = @item.Descripcion;
+                                    }
+
+                                    </InputSelect>
                                 </div>
 
                                 <div class="col">
                                     <label> Cantidad </label>
-                                    <InputNumber class="col-control" @bind-Value="Cantidad" />
+                                    <InputNumber class="col-control" @bind-Value="frutosDetalle.Cantidad" />
                                 </div>
                                 
                                 <div class="col g-3">
@@ -87,18 +95,18 @@
 
                         <thead class="thead">
                             <tr class="table">
-                                <th>ProductoId</th>
+                                <th>FrutosId</th>
                                 <th>Descripci&oacute;n</th>
                                 <th>Cantidad</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach (var item in producto.ProductosDetalle)
+                            @foreach (var item in frutos.FrutosDetalles)
                             {
                                 <tr>
-                                    <td>@item.DetallesId += 1</td>
-                                    <td>@item.DescripcionDetalle</td>
+                                    <td>@item.DetallesId</td>
+                                    <td>@item.Producto</td>
                                     <td>@item.Cantidad</td>
 
                                     <td><span class="btn btn-sm btn-outline-primary oi oi-ban" href="#"  @onclick="@(() => RemoverFila(item))"> Remover</span> </td>
@@ -110,16 +118,16 @@
 
                     @* Peso total *@
                     <div class="row col-g-2">
-                        <label class="col-sm-2" > Peso</label>
-                        <InputNumber class="col-control col-2" @bind-Value="Peso" />
-                        <ValidationMessage For="@(() => Peso)" />
+                        <label class="col-sm-2" >Peso</label>
+                        <InputNumber class="col-control col-2" @bind-Value="frutos.Peso" />
+                        <ValidationMessage For="@(() => frutos.Peso)" />
                     </div>
 
                 </div>
             </div>
 
             @* Produccion *@
-            <div class="card align-items-center">
+           <div class="card align-items-center">
                 
                 <div class="card-header">
                     <h3> Producido </h3>
@@ -132,8 +140,13 @@
                         <div class="col-sm-3">
                             <label> Producto </label>
                             <div class="row">
-                                <InputSelect class="col-group col-30 lg" @bind-Value="Descripcion">
+                                <InputSelect class="col-group col-30 lg" @bind-Value="frutosDetalle.DetallesId">
                                 
+                                    @foreach(var item in frutos.FrutosDetalles)
+                                    {
+                                        <option value="@item.DetallesId">@item.Producto</option>
+                                    }
+
                                 </InputSelect>
                             </div>
                         </div>
@@ -141,8 +154,8 @@
                         <div class="col" >
                             <label> Cantidad </label>
                             <div class="row-5">
-                                <InputNumber class="col-control" @bind-Value="Cantidad" />
-                                @* <ValidationMessage For="@(() => )" /> *@
+                                <InputNumber class="col-control" @bind-Value="frutos.Cantidad" />
+                                <ValidationMessage For="@(() => frutos.Cantidad)" />
                             </div>
                         </div>
                     </div>
@@ -167,42 +180,32 @@
 @code {
 
     [Parameter]
-    public int ProductoId { get; set; }
+    public int FrutosId { get; set; }
 
-    public string? Descripcion { get; set; }
+    public Frutos frutos { get; set; }
 
-    public string? Presentacion { get; set; }
-    
-    public int Cantidad { get; set; }
-    
-    public int Peso { get; set; }
-
-    public double Precio { get; set; }
-    
-    public int Empaque { get; set; }
-
-    public Productos producto { get; set; } = new Productos();
+    public FrutosDetalle frutosDetalle { get; set; } = new FrutosDetalle();
 
     public List<Productos> productos { get; set; } = new List<Productos>();
 
     [Inject]
-    public ProductosBLL productosBLL { get; set; }
+    public FrutosBLL frutosBLL { get; set; }
 
     protected override void OnInitialized()
     {
         Nuevo();
-        producto.ProductoId = ProductoId;
+        frutos.FrutosId = FrutosId;
         @* productos = productosBLL.GetList(p => true); *@
         Buscar();
     }
 
     private void Buscar()
     {
-        if (this.ProductoId > 0)
+        if (this.FrutosId > 0)
         {
-            Productos? encontrado = productosBLL?.Buscar(this.producto.ProductoId);
+            Frutos? encontrado = frutosBLL?.Buscar(this.frutos.FrutosId);
             if (encontrado != null)
-                this.producto = encontrado;
+                this.frutos = encontrado;
             else
                 toast.ShowError("No se a podido eliminar el producto");
         }
@@ -210,21 +213,19 @@
 
     private void Nuevo()
     {
-        this.producto = new Productos();
+        this.frutos = new Frutos();
     }
 
     private void AgregarDetalle()
     {
-        ExistenciaEmpaquetadoCalcular();
-        this.producto.ProductosDetalle.Add(new ProductosDetalle(Descripcion, Presentacion, Cantidad, Precio, Empaque));
-
+        this.frutos.FrutosDetalles.Add(frutosDetalle);
     }
 
     private void Guardar()
     {
         bool confirmar = false;
         
-        confirmar = productosBLL.Guardar(producto);
+        confirmar = frutosBLL.Guardar(frutos);
 
         if (confirmar)
         {
@@ -237,15 +238,15 @@
         }
     }
 
-    private void RemoverFila(ProductosDetalle item)
+    private void RemoverFila(FrutosDetalle item)
     {
-        this.producto?.ProductosDetalle?.Remove(item);
+        this.frutos.FrutosDetalles.Remove(item);
     }
 
     private void Eliminar()
     {
         bool confirmar;
-        confirmar = productosBLL.Eliminar(producto.ProductoId);
+        confirmar = frutosBLL.Eliminar(frutos.FrutosId);
         if (confirmar)
         {
             toast.ShowSuccess("Se ha eliminado el producto");
@@ -257,7 +258,7 @@
         }
     }
 
-    public void CostoChanged()
+    @* public void CostoChanged()
     {
         PrecioOrCostoChanged();
         ExistenciaOrCostoChanged();
@@ -276,10 +277,5 @@
     public void PrecioOrCostoChanged()
     {
         producto.Ganancia = (int)((producto.Precio - producto.Costo) / producto.Costo) * 100;
-    }
-
-    public void ExistenciaEmpaquetadoCalcular()
-    {
-        this.Empaque = producto.Existencia / Cantidad;
-    }
+    } *@
 }

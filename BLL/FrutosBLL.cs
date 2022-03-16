@@ -19,28 +19,28 @@ namespace Anderson_Gomez_Ap1_p2.BLL
             _contexto = contexto;
         }
 
-        public bool Guardar(Productos producto)
+        public bool Guardar(Frutos frutos)
         {
-            if(!Existe(producto.ProductoId))
-                return Insertar(producto);
+            if(!Existe(frutos.FrutosId))
+                return Insertar(frutos);
             else
-                return Modificar(producto);
+                return Modificar(frutos);
         }
 
-        private bool Modificar(Productos productos)
+        private bool Modificar(Frutos frutos)
         {
             bool confirmar = false;
 
             try
             {
-                _contexto.Database.ExecuteSqlRaw($"Delete FROM ProductosDetalle where ProductoId={productos.ProductoId}");
+                _contexto.Database.ExecuteSqlRaw($"Delete FROM FrutosDetalle where FrutosId={frutos.FrutosId}");
 
-                foreach (var detalle in productos.ProductosDetalle)
+                foreach (var detalle in frutos.FrutosDetalles)
                 {
                     _contexto.Entry(detalle).State = EntityState.Added;
                 }
 
-                _contexto.Entry(productos).State = EntityState.Modified;
+                _contexto.Entry(frutos).State = EntityState.Modified;
             }
             catch (Exception)
             {
@@ -50,19 +50,19 @@ namespace Anderson_Gomez_Ap1_p2.BLL
             return confirmar;
         }
 
-        private bool Insertar(Productos productos)
+        private bool Insertar(Frutos frutos)
         {
             bool confirmar = false;
 
 
             try
             {
-                _contexto.Productos.Add(productos);
+                _contexto.Frutos.Add(frutos);
 
-                foreach(var detalle in productos.ProductosDetalle)
+                foreach(var detalle in frutos.FrutosDetalles)
                 {
                     _contexto.Entry(detalle).State = EntityState.Added;
-                    _contexto.Entry(detalle.DescripcionDetalle).State = EntityState.Modified;
+                    _contexto.Entry(detalle.Producto).State = EntityState.Modified;
                 }
 
                 confirmar = _contexto.SaveChanges() > 0;
@@ -81,10 +81,10 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                var productos = _contexto.Productos.Find(id);
-                if(productos != null)
+                var frutos = _contexto.Frutos.Find(id);
+                if(frutos != null)
                 {
-                    _contexto.Productos.Remove(productos);
+                    _contexto.Frutos.Remove(frutos);
                     confirmar = _contexto.SaveChanges() > 0;
                 }
             }
@@ -96,20 +96,20 @@ namespace Anderson_Gomez_Ap1_p2.BLL
             return confirmar;
         }
 
-        public Productos Buscar(int id)
+        public Frutos Buscar(int id)
         {
-            Productos productos;
+            Frutos frutos;
 
             try
             {
-                productos = _contexto.Productos.Include(x => x.ProductosDetalle).Where(e => e.ProductoId == id).SingleOrDefault();
+                frutos = _contexto.Frutos.Include(x => x.FrutosDetalles).Where(e => e.FrutosId == id).SingleOrDefault();
             }
             catch (Exception)
             {
                 throw;
             }
 
-            return productos;
+            return frutos;
         }
 
         private bool Existe(int id)
@@ -118,7 +118,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                confirmar = _contexto.Productos.Any(e => e.ProductoId == id);
+                confirmar = _contexto.Frutos.Any(e => e.FrutosId == id);
             }
             catch (Exception)
             {
@@ -128,13 +128,13 @@ namespace Anderson_Gomez_Ap1_p2.BLL
             return confirmar;
         }
 
-        public List<Productos> GetProductos()
+        public List<Frutos> GetProductos()
         {
-            List<Productos>? lista = new List<Productos>();
+            List<Frutos>? lista = new List<Frutos>();
 
             try
             {
-                lista = _contexto.Productos.ToList();
+                lista = _contexto.Frutos.ToList();
             }
             catch (Exception)
             {
@@ -144,13 +144,13 @@ namespace Anderson_Gomez_Ap1_p2.BLL
             return lista;
         }
 
-        public List<Productos> GetList(Expression<Func<Productos, bool>> criterio)
+        public List<Frutos> GetList(Expression<Func<Frutos, bool>> criterio)
         {
-            List<Productos>? lista = new List<Productos>();
+            List<Frutos>? lista = new List<Frutos>();
 
             try
             {
-                lista = _contexto.Productos.Where(criterio).ToList();
+                lista = _contexto.Frutos.Where(criterio).ToList();
             }
             catch (Exception)
             {

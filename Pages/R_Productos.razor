@@ -126,22 +126,22 @@
                                     
                                     <div class="form-group">
                                         <label> Descripción </label>
-                                        <InputText class="form-control" @bind-Value="Descripcion" placeholder="Descripción del detalle" />
+                                        <InputText class="form-control" @bind-Value="productosDetalles.DescripcionDetalle" placeholder="Descripción del detalle" />
                                     </div>
 
                                     <div class="form-group">
                                         <label> Presentación </label>
-                                        <InputText class="form-control" @bind-Value="Presentacion" placeholder="Tipo de empaquetación" />
+                                        <InputText class="form-control" @bind-Value="productosDetalles.Presentacion" placeholder="Tipo de empaquetación" />
                                     </div>
 
                                     <div class="form-group">
                                         <label> Cantidad </label>
-                                        <InputNumber class="form-control" @bind-Value="Cantidad" />
+                                        <InputNumber class="form-control" @bind-Value="productosDetalles.Cantidad" />
                                     </div>
                                     
                                     <div class="form-group">
                                         <label> Precio </label>
-                                        <InputNumber class="form-control" @bind-Value="Precio" />
+                                        <InputNumber class="form-control" @bind-Value="productosDetalles.Precio" />
                                     </div>
 
                                     <button type="button" class="btn btn-lg btn-primary" @onclick="AgregarDetalle"> Agregar </button>
@@ -154,11 +154,11 @@
                         <thead class="thead">
                             <tr class="table">
                                 <th>DetalleId</th>
-                                <th>|Descripción</th>
-                                <th>|Presentación</th>
-                                <th>|Cantidad</th>
-                                <th>|Precio</th>
-                                <th>|Existencia de empaquetación</th>
+                                <th>Descripción</th>
+                                <th>Presentación</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Existencia de empaquetación</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -201,15 +201,7 @@
     [Parameter]
     public int ProductoId { get; set; }
 
-    public string? Descripcion { get; set; }
-
-    public string? Presentacion { get; set; }
-    
-    public int Cantidad { get; set; }
-
-    public double Precio { get; set; }
-    
-    public int Empaque { get; set; }
+    public ProductosDetalle productosDetalles { get; set; } = new ProductosDetalle();
 
     public Productos producto { get; set; } = new Productos();
 
@@ -219,15 +211,15 @@
     protected override void OnInitialized()
     {
         Nuevo();
-        producto.ProductoId = ProductoId;
-        Buscar();
+        @* producto.ProductoId = ProductoId;
+        Buscar(); *@
     }
 
     private void Buscar()
     {
         if (this.ProductoId > 0)
         {
-            Productos? encontrado = productosBLL?.Buscar(this.producto.ProductoId);
+            Productos encontrado = productosBLL.Buscar(this.producto.ProductoId);
             if (encontrado != null)
                 this.producto = encontrado;
             else
@@ -243,8 +235,7 @@
     private void AgregarDetalle()
     {
         ExistenciaEmpaquetadoCalcular();
-        this.producto.ProductosDetalle.Add(new ProductosDetalle(Descripcion, Presentacion, Cantidad, Precio, Empaque));
-
+        this.producto.ProductosDetalle.Add(productosDetalles);
     }
 
     private void Guardar()
@@ -266,7 +257,7 @@
 
     private void RemoverFila(ProductosDetalle item)
     {
-        this.producto?.ProductosDetalle?.Remove(item);
+        this.producto.ProductosDetalle.Remove(item);
     }
 
     private void Eliminar()
@@ -307,6 +298,6 @@
 
     public void ExistenciaEmpaquetadoCalcular()
     {
-        this.Empaque = producto.Existencia / Cantidad;
+        productosDetalles.Empaque = (int)(producto.Existencia / productosDetalles.Cantidad);
     }
 }
