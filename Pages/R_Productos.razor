@@ -19,9 +19,10 @@
         <div class="card-body">
 
             @* ProductoId *@
-            <div>
+            <div class="form-group mt-1">
+                <label class="form-group"> Producto Id </label>
                 <div class="input-group">
-                    <label class="input-group-text"> Producto Id </label>
+                    
                     <InputNumber class="form-control col-4" @bind-Value="producto.ProductoId" />
                     <ValidationMessage For="@(() => producto.ProductoId)" />
 
@@ -31,10 +32,9 @@
 
 
             @* Descricion *@
-            <div class="form-group">
-
+            <div class="form-group mt-1">
+                <label class="form-group"> Descrición </label>
                 <div class="input-group">
-                    <label class="input-group-text"> Descrición </label>
                     <InputText class="form-control" @bind-Value="producto.Descripcion" placeholder="Descripción, nombre producto" />
                     <ValidationMessage For="@(() =>producto.Descripcion)" />
                 </div>
@@ -42,10 +42,9 @@
             </div>
 
             @* Existencia *@
-            <div class="form-group">
-
+            <div class="form-group mt-1">
+                <label class="form-group"> Existencia </label>
                 <div class="input-group">
-                    <label class="input-group-text"> Existencia </label>
                     <InputNumber id="existencia" class="form-control" @bind-Value="producto.Existencia" @onchange="ExistenciaOrCostoChanged" />
                     <ValidationMessage For="@(() => producto.Existencia)" />
                 </div>
@@ -53,10 +52,9 @@
             </div>
 
             @* Costo *@
-            <div class="form-group">
-
+            <div class="form-group mt-1">
+                <label class="form-group-text"> Costo </label>
                 <div class="input-group">
-                    <label class="input-group-text"> Costo </label>
                     <InputNumber id="costo" class="form-control" @bind-Value="producto.Costo" @onchange="CostoChanged" />
                     <ValidationMessage For="@(() => producto.Costo)" />
                 </div>
@@ -64,10 +62,9 @@
             </div>
 
             @* ValorInventario *@
-            <div class="form-group">
-
+            <div class="form-group mt-1">
+                <label class="form-group-text"> Valor Inventario </label>
                 <div class="input-group">
-                    <label class="input-group-text"> Valor Inventario </label>
                     <InputNumber readonly class="form-control" @bind-Value="producto.ValorInventario" />
                     <ValidationMessage For="@(() => producto.ValorInventario)" />
                 </div>
@@ -75,20 +72,18 @@
             </div>
 
             @* Precio *@
-            <div Class="form-group" >
-
+            <div Class="form-group mt-1" >
+                <label class="form-group-text"> Precio </label>
                 <div class="input-group">
-                    <label class="input-group-text"> Precio </label>
                     <InputNumber class="form-control" @bind-Value="producto.Precio" @onchange="PrecioOrCostoChanged" />
                     <ValidationMessage For="@(() => producto.Precio)" />
                 </div>
             </div>
 
             @* Porcentaje Ganancia *@
-            <div Class="form-group" >
-
+            <div Class="form-group mt-1" >
+                <label class="form-group-text"> Ganancia </label>
                 <div class="input-group">
-                    <label class="input-group-text"> Ganancia </label>
                     <InputNumber readonly class="form-control col-4" @bind-Value="producto.Ganancia" @onchange="GananciaChanged" />
                     <label class="input-group-text" > % </label>
                     <ValidationMessage For="@(() => producto.Ganancia)" />
@@ -96,8 +91,17 @@
 
             </div>
 
+            @* Peso en Gramos *@
+            <div Class="form-group mt-1" >
+                <label class="form-group"> Peso en gramos </label>
+                <div class="input-group">
+                    <InputNumber class="form-control col-4" @bind-Value="producto.Gramos" />
+                    <ValidationMessage For="@(() => producto.Gramos)" />
+                </div>
+            </div>
+
             @* Fecha de Caducidad *@
-            <div Class="form-group">
+            <div Class="form-group mt-3">
                 <div class="input-group">
                     <span class="input-group-text"> Fecha de Caducidad </span>
                     <input type="date" @bind-value="producto.FechaCaducidad" />
@@ -125,12 +129,12 @@
                                 <div class="input-group">
                                     
                                     <div class="form-group">
-                                        <label> Descripción </label>
+                                        <label> Descripci&oacute;n </label>
                                         <InputText class="form-control" @bind-Value="productosDetalles.DescripcionDetalle" placeholder="Descripción del detalle" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label> Presentación </label>
+                                        <label> Presentaci&oacute;n </label>
                                         <InputText class="form-control" @bind-Value="productosDetalles.Presentacion" placeholder="Tipo de empaquetación" />
                                     </div>
 
@@ -144,21 +148,23 @@
                                         <InputNumber class="form-control" @bind-Value="productosDetalles.Precio" />
                                     </div>
 
-                                    <button type="button" class="btn btn-lg btn-primary" @onclick="AgregarDetalle"> Agregar </button>
+                                    <div class="form-group mb-4 mt-4">
+                                        <button type="button" class="btn btn-sm-10 btn-primary" @onclick="AgregarDetalle"><span class="oi oi-plus"></span> Agregar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <table class="table table-light">
+                    <table class="table table-light table-striped">
                         <thead class="thead">
                             <tr class="table">
                                 <th>DetalleId</th>
-                                <th>Descripción</th>
-                                <th>Presentación</th>
+                                <th>Descripci&oacute;n</th>
+                                <th>Presentaci&oacute;n</th>
                                 <th>Cantidad</th>
                                 <th>Precio</th>
-                                <th>Existencia de empaquetación</th>
+                                <th>Existencia de empaquetaci&oacute;n</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -211,8 +217,8 @@
     protected override void OnInitialized()
     {
         Nuevo();
-        @* producto.ProductoId = ProductoId;
-        Buscar(); *@
+        producto.ProductoId = ProductoId;
+        Buscar();
     }
 
     private void Buscar()
@@ -236,6 +242,7 @@
     {
         ExistenciaEmpaquetadoCalcular();
         this.producto.ProductosDetalle.Add(productosDetalles);
+        this.productosDetalles = new ProductosDetalle();
     }
 
     private void Guardar()
@@ -293,11 +300,11 @@
 
     public void PrecioOrCostoChanged()
     {
-        producto.Ganancia = (int)((producto.Precio - producto.Costo) / producto.Costo) * 100;
+        producto.Ganancia = Convert.ToInt16(((producto.Precio - producto.Costo) / producto.Costo) * 100);
     }
 
     public void ExistenciaEmpaquetadoCalcular()
     {
-        productosDetalles.Empaque = (int)(producto.Existencia / productosDetalles.Cantidad);
+        productosDetalles.Empaque =(int)(Convert.ToDouble(producto.Existencia) / productosDetalles.Cantidad);
     }
 }

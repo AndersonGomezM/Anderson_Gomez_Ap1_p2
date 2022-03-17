@@ -54,7 +54,6 @@ namespace Anderson_Gomez_Ap1_p2.BLL
         {
             bool confirmar = false;
 
-
             try
             {
                 _contexto.Frutos.Add(frutos);
@@ -62,7 +61,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
                 foreach(var detalle in frutos.FrutosDetalles)
                 {
                     _contexto.Entry(detalle).State = EntityState.Added;
-                    _contexto.Entry(detalle.Producto).State = EntityState.Modified;
+                    _contexto.Entry(detalle.Cantidad).State = EntityState.Modified;
                 }
 
                 confirmar = _contexto.SaveChanges() > 0;

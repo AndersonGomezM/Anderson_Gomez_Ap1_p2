@@ -66,15 +66,15 @@
                                 
                                 <div class="col">
                                     <label> Producto </label>
-                                    <InputSelect class="col-group col-30 lg" @bind-Value="frutosDetalle.DetallesId">
-                                
-                                    @foreach(var item in productos)
-                                    {
-                                        <option value="@item.ProductoId">@item.Descripcion</option>
-                                        frutosDetalle.Producto = @item.Descripcion;
-                                    }
-
-                                    </InputSelect>
+                                    <div class="row">
+                                        <InputSelect class="col-group col-30 lg" @bind-Value="frutosDetalle.DetallesId">
+                                        @foreach(var item in productos)
+                                        {
+                                            <option value="@item.ProductoId">@item.Descripcion</option>
+                                            frutosDetalle.Producto = @item.Descripcion;
+                                        }
+                                        </InputSelect>
+                                    </div>
                                 </div>
 
                                 <div class="col">
@@ -83,7 +83,7 @@
                                 </div>
                                 
                                 <div class="col g-3">
-                                    <button type="button" class="btn btn-sm-4 btn-primary" @onclick="AgregarDetalle"> Agregar </button>
+                                    <button type="button" class="btn btn-sm-4 btn-primary" @onclick="AgregarDetalle"><span class="oi oi-plus"></span> Agregar </button>
                                 </div>
 
                             </div>
@@ -91,7 +91,7 @@
                     </div>
 
                     @* Tabla *@
-                    <table class="table table-light table-bordered">
+                    <table class="table table-light table-striped">
 
                         <thead class="thead">
                             <tr class="table">
@@ -137,7 +137,7 @@
                     <div class="row">
 
                         @* Productos *@
-                        <div class="col-sm-3">
+                        <div class="col mb-3">
                             <label> Producto </label>
                             <div class="row">
                                 <InputSelect class="col-group col-30 lg" @bind-Value="frutosDetalle.DetallesId">
@@ -219,6 +219,7 @@
     private void AgregarDetalle()
     {
         this.frutos.FrutosDetalles.Add(frutosDetalle);
+        this.frutosDetalle = new FrutosDetalle();
     }
 
     private void Guardar()

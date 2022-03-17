@@ -32,6 +32,10 @@ namespace Anderson_Gomez_Ap1_p2.Entidades
 
         public double ValorInventario { get; set; }
 
+        [Required(ErrorMessage = "Campo obligatorio. Se debe indicar el peso.")]
+        [Range(1, double.MaxValue, ErrorMessage = "Se debe indicar el peso del producto dentro de los rangos {1}/{2}.")]
+        public double Gramos { get; set; }
+
         public DateTime FechaCaducidad { get; set; } = DateTime.Now;
 
         [ForeignKey("ProductoId")]
