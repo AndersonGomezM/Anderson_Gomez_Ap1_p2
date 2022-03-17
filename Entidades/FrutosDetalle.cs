@@ -8,6 +8,8 @@ namespace Anderson_Gomez_Ap1_p2.Entidades
 {
     public class FrutosDetalle
     {
+        [Key]
+
         public int DetallesId { get; set; }
 
         public string? Producto { get; set; }

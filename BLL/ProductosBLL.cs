@@ -91,11 +91,15 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
         public Productos Buscar(int id)
         {
-            Productos productos;
+            Productos? productos;
 
             try
             {
-                productos = _contexto.Productos.Include(x => x.ProductosDetalle).Where(e => e.ProductoId == id).SingleOrDefault();
+                productos = _contexto.Productos
+                    .Include(x => x.ProductosDetalle)
+                    .Where(e => e.ProductoId == id)
+                    .AsNoTracking()
+                    .SingleOrDefault();
             }
             catch (Exception)
             {
@@ -127,7 +131,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.Productos.ToList();
+                lista = _contexto.Productos.AsNoTracking().ToList();
             }
             catch (Exception)
             {
@@ -143,7 +147,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.Productos.Where(criterio).ToList();
+                lista = _contexto.Productos.Where(criterio).AsNoTracking().ToList();
             }
             catch (Exception)
             {
@@ -159,7 +163,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.ProductosDetalles.Where(criterio).ToList();
+                lista = _contexto.ProductosDetalles.Where(criterio).AsNoTracking().ToList();
             }
             catch (Exception)
             {

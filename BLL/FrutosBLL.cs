@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Data.SqlTypes;
 using System.Net.Http.Headers;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
@@ -42,9 +43,9 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
                 _contexto.Entry(frutos).State = EntityState.Modified;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw e;
             }
 
             return confirmar;
@@ -66,9 +67,9 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
                 confirmar = _contexto.SaveChanges() > 0;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw e;
             }
 
             return confirmar;
@@ -87,9 +88,9 @@ namespace Anderson_Gomez_Ap1_p2.BLL
                     confirmar = _contexto.SaveChanges() > 0;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw e;
             }
 
             return confirmar;
@@ -97,15 +98,19 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
         public Frutos Buscar(int id)
         {
-            Frutos frutos;
+            Frutos? frutos;
 
             try
             {
-                frutos = _contexto.Frutos.Include(x => x.FrutosDetalles).Where(e => e.FrutosId == id).SingleOrDefault();
+                frutos = _contexto.Frutos
+                    .Include(x => x.FrutosDetalles)
+                    .Where(e => e.FrutosId == id)
+                    .AsNoTracking()
+                    .SingleOrDefault();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw e;
             }
 
             return frutos;
@@ -133,7 +138,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.Frutos.ToList();
+                lista = _contexto.Frutos.AsNoTracking().ToList();
             }
             catch (Exception)
             {
@@ -149,7 +154,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.Frutos.Where(criterio).ToList();
+                lista = _contexto.Frutos.Where(criterio).AsNoTracking().ToList();
             }
             catch (Exception)
             {
