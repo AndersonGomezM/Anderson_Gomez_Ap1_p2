@@ -34,13 +34,20 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                _contexto.Database.ExecuteSqlRaw($"Delete FROM FrutosDetalle where FrutosId={frutos.FrutosId}");
+                /* var entradaAnterior = _contexto.Frutos
+                    .Where(e => e.FrutosId == frutos.FrutosId)
+                    .Include(x => x.FrutosDetalles)
+                    .ThenInclude(x => x.Producto)
+                    .AsNoTracking()
+                    .SingleOrDefault();
 
+                
+                /* _contexto.Database.ExecuteSqlRaw($"Delete FROM FrutosDetalle where FrutosId={frutos.FrutosId}"); */
+                
                 foreach (var detalle in frutos.FrutosDetalles)
                 {
                     _contexto.Entry(detalle).State = EntityState.Added;
                 }
-
                 _contexto.Entry(frutos).State = EntityState.Modified;
             }
             catch (Exception e)
@@ -59,11 +66,12 @@ namespace Anderson_Gomez_Ap1_p2.BLL
             {
                 _contexto.Frutos.Add(frutos);
 
-                foreach(var detalle in frutos.FrutosDetalles)
+                /* foreach(var detalle in frutos.FrutosDetalles)
                 {
                     _contexto.Entry(detalle).State = EntityState.Added;
                     _contexto.Entry(detalle.Cantidad).State = EntityState.Modified;
-                }
+                } */
+
 
                 confirmar = _contexto.SaveChanges() > 0;
             }

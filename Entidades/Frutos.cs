@@ -17,9 +17,11 @@ namespace Anderson_Gomez_Ap1_p2.Entidades
 
         public DateTime Fecha { get; set; } = DateTime.Now;
 
+        public string? ProductoEmpacado { get; set;}
+
         public int Cantidad { get; set; }
 
-        public int Peso { get; set; }
+        public double Peso { get; set; }
 
         [ForeignKey("FrutosId")]
         public virtual List<FrutosDetalle> FrutosDetalles { get; set; } = new List<FrutosDetalle>();

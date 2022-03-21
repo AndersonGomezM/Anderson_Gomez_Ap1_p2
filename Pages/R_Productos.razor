@@ -207,6 +207,8 @@
     [Parameter]
     public int ProductoId { get; set; }
 
+    public int IdDetalle { get; set; } 
+
     public ProductosDetalle productosDetalles { get; set; } = new ProductosDetalle();
 
     public Productos producto { get; set; } = new Productos();
@@ -241,6 +243,8 @@
     private void AgregarDetalle()
     {
         ExistenciaEmpaquetadoCalcular();
+        IdDetalle += 1;
+        productosDetalles.DetallesId = IdDetalle;
         this.producto.ProductosDetalle.Add(productosDetalles);
         this.productosDetalles = new ProductosDetalle();
     }

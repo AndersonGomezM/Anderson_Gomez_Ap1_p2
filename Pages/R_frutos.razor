@@ -68,11 +68,10 @@
                                     <label> Producto </label>
                                     <div class="row">
                                         <InputSelect class="col-group col-30 lg" @bind-Value="frutosDetalle.DetallesId">
-                                        @foreach(var item in productos)
-                                        {
-                                            <option value="@item.ProductoId">@item.Descripcion</option>
-                                            frutosDetalle.Producto = @item.Descripcion;
-                                        }
+                                            @foreach (var item in productos)
+                                            {
+                                                <option value="@item.ProductoId">@item.Descripcion</option>
+                                            }
                                         </InputSelect>
                                     </div>
                                 </div>
@@ -117,10 +116,10 @@
                     </table>
 
                     @* Peso total *@
-                    <div class="row col-g-2">
+                    <div class="row g-2 mt-3">
                         <label class="col-sm-2" >Peso</label>
-                        <InputNumber class="col-control col-2" @bind-Value="frutos.Peso" />
-                        <ValidationMessage For="@(() => frutos.Peso)" />
+                        <InputNumber readonly class="col-control col-2" @bind-Value="PesoTotal" @onchange="PesoChanged" />
+                        <ValidationMessage For="@(() => PesoTotal)" />
                     </div>
 
                 </div>
@@ -140,8 +139,9 @@
                         <div class="col mb-3">
                             <label> Producto </label>
                             <div class="row">
-                                <InputSelect class="col-group col-30 lg" @bind-Value="frutosDetalle.DetallesId">
+                                <InputSelect class="col-group col-30 lg" @bind-Value="Tipo">
                                 
+                                    <option value="-1">Mixto</option>
                                     @foreach(var item in frutos.FrutosDetalles)
                                     {
                                         <option value="@item.DetallesId">@item.Producto</option>
@@ -178,9 +178,14 @@
 </EditForm>
 
 @code {
-
     [Parameter]
     public int FrutosId { get; set; }
+
+    public int Tipo { get; set; }
+
+    public double Peso { get; set; }
+
+    public double PesoTotal { get; set; }
 
     public Frutos frutos { get; set; }
 
@@ -191,11 +196,14 @@
     [Inject]
     public FrutosBLL frutosBLL { get; set; }
 
+    [Inject]
+    public ProductosBLL productosBLL { get; set; }
+
     protected override void OnInitialized()
     {
         Nuevo();
         frutos.FrutosId = FrutosId;
-        @* productos = productosBLL.GetList(p => true); *@
+        productos = productosBLL.GetList(b => true);
         Buscar();
     }
 
@@ -218,6 +226,10 @@
 
     private void AgregarDetalle()
     {
+        var descripcion = productosBLL.Buscar(frutosDetalle.DetallesId);
+        frutosDetalle.Producto = descripcion.Descripcion;
+        frutosDetalle.Peso = descripcion.Gramos;
+        PesoChanged();
         this.frutos.FrutosDetalles.Add(frutosDetalle);
         this.frutosDetalle = new FrutosDetalle();
     }
@@ -225,7 +237,9 @@
     private void Guardar()
     {
         bool confirmar = false;
-        
+        var descripcion = productosBLL.Buscar(Tipo);
+        frutos.ProductoEmpacado = descripcion.Descripcion;
+        frutos.Peso = descripcion.Gramos * frutos.Cantidad;
         confirmar = frutosBLL.Guardar(frutos);
 
         if (confirmar)
@@ -257,6 +271,11 @@
         {
             toast.ShowError("No fue posible eliminar el producto");
         }
+    }
+
+    public void PesoChanged()
+    {
+        PesoTotal += (frutosDetalle.Peso * frutosDetalle.Cantidad);
     }
 
     @* public void CostoChanged()

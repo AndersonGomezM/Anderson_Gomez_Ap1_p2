@@ -17,8 +17,9 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Concepto = table.Column<string>(type: "TEXT", nullable: true),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ProductoEmpacado = table.Column<string>(type: "TEXT", nullable: true),
                     Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
-                    Peso = table.Column<int>(type: "INTEGER", nullable: false)
+                    Peso = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,6 +54,7 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Producto = table.Column<string>(type: "TEXT", nullable: true),
                     Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
+                    Peso = table.Column<double>(type: "REAL", nullable: false),
                     FrutosId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>

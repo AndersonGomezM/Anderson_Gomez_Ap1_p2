@@ -41,8 +41,11 @@
                 <tr class="table">
                     <th>FrutosId</th>
                     <th>Concepto</th>
+                    <th>Producto Empacado</th>
                     <th>Cantidad</th>
+                    <th>Peso</th>
                     <th>Fecha</th>
+                    <th><span class="oi oi-eye"> Ver</span></th>
                 </tr>
             </thead>
 
@@ -52,7 +55,9 @@
                     <tr>
                         <td>@item.FrutosId</td>
                         <td>@item.Concepto</td>
+                        <td>@item.ProductoEmpacado</td>
                         <td>@item.Cantidad</td>
+                        <td>@item.Peso</td>
                         <td>@item.Fecha.ToString("dd-MM-yyyy")</td>
                         <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="Registro_frutos/@item.FrutosId"> Ver </a></td>
                     </tr>

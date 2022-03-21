@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Anderson_Gomez_Ap1_p2.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220317202810_Producto")]
+    [Migration("20220321191621_Producto")]
     partial class Producto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,8 +34,11 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Peso")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Peso")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("ProductoEmpacado")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("FrutosId");
 
@@ -53,6 +56,9 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
 
                     b.Property<int?>("FrutosId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<double>("Peso")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Producto")
                         .HasColumnType("TEXT");

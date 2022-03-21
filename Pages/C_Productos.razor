@@ -36,7 +36,7 @@
             
         </div>
 
-        <table class="table table-light table-bordered" >
+        <table class="table table-bordered align-items-center" >
 
             <thead class="thead">
                 <tr class="table">
@@ -49,6 +49,7 @@
                     <th>Precio</th>
                     <th>Ganancia</th>
                     <th>Fecha de Caducidad</th>
+                    <th><span class="oi oi-eye"> Ver</span></th>
 
                 </tr>
             </thead>
@@ -78,9 +79,9 @@
 
 @code {
     
-    public string? filtro { get; set; }
+    public string filtro { get; set; }
 
-    public string? Criterio { get; set; }
+    public string Criterio { get; set; }
 
     public List<Productos> producto { get; set; } = new List<Productos>();
 

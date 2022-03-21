@@ -4,7 +4,18 @@
 
 <PageTitle>Registro de productos</PageTitle>
 
+<BlazoredToasts Position="ToastPosition.TopRight"
+    Timeout="5"
+    IconType="IconType.FontAwesome"
+    SuccessClass="success-toast-override"                
+    SuccessIcon="fa fa-check"
+    ErrorIcon="fa fa-times"
+    InfoIcon="fa fa-info"
+    WarningIcon="fa fa-warning"
+/>
+
 <div class="page">
+    
     <div class="sidebar">
         <NavMenu />
     </div>
@@ -19,14 +30,5 @@
         </article>
     </main>
 
-    <BlazoredToasts
-        Position="ToastPosition.TopRight"
-        Timeout="10"
-        IconType="IconType.FontAwesome"
-        SuccessClass="success-toast-override"
-        SuccessIcon="fa fa-check"
-        ErrorIcon="fa fa-times"
-        InfoIcon="fa fa-info"
-        WarningIcon="fa fa-warning"
-    />
 </div>
+
