@@ -68,7 +68,7 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductosDetalles",
+                name: "ProductosDetalle",
                 columns: table => new
                 {
                     DetallesId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -82,9 +82,9 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductosDetalles", x => x.DetallesId);
+                    table.PrimaryKey("PK_ProductosDetalle", x => x.DetallesId);
                     table.ForeignKey(
-                        name: "FK_ProductosDetalles_Productos_ProductoId",
+                        name: "FK_ProductosDetalle_Productos_ProductoId",
                         column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "ProductoId");
@@ -96,8 +96,8 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                 column: "FrutosId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductosDetalles_ProductoId",
-                table: "ProductosDetalles",
+                name: "IX_ProductosDetalle_ProductoId",
+                table: "ProductosDetalle",
                 column: "ProductoId");
         }
 
@@ -107,7 +107,7 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                 name: "FrutosDetalle");
 
             migrationBuilder.DropTable(
-                name: "ProductosDetalles");
+                name: "ProductosDetalle");
 
             migrationBuilder.DropTable(
                 name: "Frutos");

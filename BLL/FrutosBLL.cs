@@ -146,7 +146,9 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.Frutos.AsNoTracking().ToList();
+                lista = _contexto.Frutos
+                    .AsNoTracking()
+                    .ToList();
             }
             catch (Exception)
             {
@@ -162,7 +164,10 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.Frutos.Where(criterio).AsNoTracking().ToList();
+                lista = _contexto.Frutos
+                    .Where(criterio)
+                    .AsNoTracking()
+                    .ToList();
             }
             catch (Exception)
             {

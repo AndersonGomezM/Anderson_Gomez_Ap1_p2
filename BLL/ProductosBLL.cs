@@ -131,7 +131,9 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.Productos.AsNoTracking().ToList();
+                lista = _contexto.Productos
+                    .AsNoTracking()
+                    .ToList();
             }
             catch (Exception)
             {
@@ -147,23 +149,10 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
             try
             {
-                lista = _contexto.Productos.Where(criterio).AsNoTracking().ToList();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return lista;
-        }
-
-        public List<ProductosDetalle> GetDetalles(Expression<Func<ProductosDetalle, bool>> criterio)
-        {
-            List<ProductosDetalle> lista = new List<ProductosDetalle>();
-
-            try
-            {
-                lista = _contexto.ProductosDetalles.Where(criterio).AsNoTracking().ToList();
+                lista = _contexto.Productos
+                    .Where(criterio)
+                    .AsNoTracking()
+                    .ToList();
             }
             catch (Exception)
             {

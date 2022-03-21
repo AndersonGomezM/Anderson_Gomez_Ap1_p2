@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Anderson_Gomez_Ap1_p2.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220321195035_Producto")]
+    [Migration("20220321235420_Producto")]
     partial class Producto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,7 +134,7 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
 
                     b.HasIndex("ProductoId");
 
-                    b.ToTable("ProductosDetalles");
+                    b.ToTable("ProductosDetalle");
                 });
 
             modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.FrutosDetalle", b =>

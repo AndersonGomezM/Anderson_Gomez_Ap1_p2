@@ -132,7 +132,7 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
 
                     b.HasIndex("ProductoId");
 
-                    b.ToTable("ProductosDetalles");
+                    b.ToTable("ProductosDetalle");
                 });
 
             modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.FrutosDetalle", b =>
