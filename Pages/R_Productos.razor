@@ -242,6 +242,7 @@
 
     private void AgregarDetalle()
     {
+        CostoChanged();
         ExistenciaEmpaquetadoCalcular();
         IdDetalle += 1;
         productosDetalles.DetallesId = IdDetalle;
@@ -252,7 +253,7 @@
     private void Guardar()
     {
         bool confirmar = false;
-        
+        CostoChanged();
         confirmar = productosBLL.Guardar(producto);
 
         if (confirmar)
@@ -290,11 +291,12 @@
     {
         PrecioOrCostoChanged();
         ExistenciaOrCostoChanged();
+        GananciaChanged();
     }
 
     public void GananciaChanged()
     {
-        producto.Ganancia = Convert.ToInt32(((producto.Precio - producto.Costo) / producto.Costo) * 100);
+        producto.Ganancia = (int)(((producto.Precio - producto.Costo) / producto.Costo) * 100);
     }
 
     public void ExistenciaOrCostoChanged()
@@ -304,7 +306,7 @@
 
     public void PrecioOrCostoChanged()
     {
-        producto.Ganancia = Convert.ToInt16(((producto.Precio - producto.Costo) / producto.Costo) * 100);
+        producto.Ganancia = (int)(((producto.Precio - producto.Costo) / producto.Costo) * 100);
     }
 
     public void ExistenciaEmpaquetadoCalcular()

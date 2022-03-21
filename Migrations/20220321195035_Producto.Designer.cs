@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Anderson_Gomez_Ap1_p2.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220321191621_Producto")]
+    [Migration("20220321195035_Producto")]
     partial class Producto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
