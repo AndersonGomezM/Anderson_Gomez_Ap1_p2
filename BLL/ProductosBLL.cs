@@ -91,11 +91,11 @@ namespace Anderson_Gomez_Ap1_p2.BLL
 
         public Productos Buscar(int id)
         {
-            Productos? productos;
+            Productos? producto;
 
             try
             {
-                productos = _contexto.Productos
+                producto = _contexto.Productos
                     .Include(x => x.ProductosDetalle)
                     .Where(e => e.ProductoId == id)
                     .AsNoTracking()
@@ -106,7 +106,7 @@ namespace Anderson_Gomez_Ap1_p2.BLL
                 throw;
             }
 
-            return productos;
+            return producto;
         }
 
         private bool Existe(int id)

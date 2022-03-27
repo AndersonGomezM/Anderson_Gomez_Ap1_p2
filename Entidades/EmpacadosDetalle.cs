@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Anderson_Gomez_Ap1_p2.Entidades
 {
-    public class FrutosDetalle
+    public class EmpacadosDetalle
     {
         [Key]
 

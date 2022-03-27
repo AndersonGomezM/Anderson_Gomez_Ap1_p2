@@ -20,7 +20,7 @@ builder.Services.AddDbContext<Contexto>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 builder.Services.AddTransient<ProductosBLL>();
-builder.Services.AddTransient<FrutosBLL>();
+builder.Services.AddTransient<EmpacadosBLL>();
 
 var app = builder.Build();
 

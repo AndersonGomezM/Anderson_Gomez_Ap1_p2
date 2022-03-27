@@ -9,7 +9,7 @@ namespace Anderson_Gomez_Ap1_p2.DAL
     {
         public DbSet<Productos> Productos { get; set; }
 
-        public DbSet<Frutos> Frutos { get; set;}
+        public DbSet<Empacados> Empacados { get; set;}
 
         public Contexto(DbContextOptions<Contexto> options) : base(options){}
     }

@@ -1,4 +1,4 @@
-﻿@page "/c_productos"
+﻿@page "/C_Productos"
 
 <PageTitle>Consulta</PageTitle>
 
@@ -65,7 +65,7 @@
                         <td>RD$@item.ValorInventario</td>
                         <td>RD$@item.Precio</td>
                         <td>@item.Ganancia%</td>
-                        <td>@item.FechaCaducidad.ToString("dd-MM-yyyy")</td>
+                        <td>@item.FechaCaducidad.ToString("dd/MM/yyyy")</td>
                         <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_productos/@item.ProductoId"> Ver </a></td>
                     </tr>
                 }

@@ -1,5 +1,5 @@
-﻿@page "/R_productos"
-@page "/R_productos/{ProductoId:int}"
+﻿@page "/R_Productos"
+@page "/R_Productos/{ProductoId:int}"
 
 @inject IToastService toast
 
@@ -45,7 +45,7 @@
             <div class="form-group mt-1">
                 <label class="form-group"> Existencia </label>
                 <div class="input-group">
-                    <InputNumber id="existencia" class="form-control" @bind-Value="producto.Existencia" @onchange="ExistenciaOrCostoChanged" />
+                    <InputNumber id="existencia" class="form-control" @bind-Value="producto.Existencia" @onchange="()=> ExistenciaOrCostoChanged()" />
                     <ValidationMessage For="@(() => producto.Existencia)" />
                 </div>
 
@@ -55,7 +55,7 @@
             <div class="form-group mt-1">
                 <label class="form-group-text"> Costo </label>
                 <div class="input-group">
-                    <InputNumber id="costo" class="form-control" @bind-Value="producto.Costo" @onchange="CostoChanged" />
+                    <InputNumber id="costo" class="form-control" @bind-Value="producto.Costo" @onchange="()=> CostoChanged()" />
                     <ValidationMessage For="@(() => producto.Costo)" />
                 </div>
 
@@ -75,7 +75,7 @@
             <div Class="form-group mt-1" >
                 <label class="form-group-text"> Precio </label>
                 <div class="input-group">
-                    <InputNumber class="form-control" @bind-Value="producto.Precio" @onchange="PrecioOrCostoChanged" />
+                    <InputNumber class="form-control" @bind-Value="producto.Precio" @onchange="()=> PrecioOrCostoChanged()" />
                     <ValidationMessage For="@(() => producto.Precio)" />
                 </div>
             </div>
@@ -84,7 +84,7 @@
             <div Class="form-group mt-1" >
                 <label class="form-group-text"> Ganancia </label>
                 <div class="input-group">
-                    <InputNumber readonly class="form-control col-4" @bind-Value="producto.Ganancia" @onchange="GananciaChanged" />
+                    <InputNumber readonly class="form-control col-4" @bind-Value="producto.Ganancia" @onchange="()=> GananciaChanged()" />
                     <label class="input-group-text" > % </label>
                     <ValidationMessage For="@(() => producto.Ganancia)" />
                 </div>
@@ -112,80 +112,80 @@
         </div>
 
         @* PRODUCTO DETALLE *@
-            <div class="card align-items-center">
+        <div class="card align-items-center">
 
-                <div class="card-header align-items-center">
-                    <h3> Presentaciones del producto </h3>
-                </div>
+            <div class="card-header align-items-center">
+                <h3> Presentaciones del producto </h3>
+            </div>
 
-                <div class="card-body">
+            <div class="card-body">
 
-                    <div class="form-row align-items-center">
+                <div class="form-row align-items-center">
 
-                        <div class="col">
+                    <div class="col">
 
-                            <div class="form-group" style="margin: 5px;">
+                        <div class="form-group" style="margin: 5px;">
+                            
+                            <div class="input-group">
                                 
-                                <div class="input-group">
-                                    
-                                    <div class="form-group">
-                                        <label> Descripci&oacute;n </label>
-                                        <InputText class="form-control" @bind-Value="productosDetalles.DescripcionDetalle" placeholder="Descripción del detalle" />
-                                    </div>
+                                <div class="form-group">
+                                    <label> Descripci&oacute;n </label>
+                                    <InputText class="form-control" @bind-Value="productosDetalles.DescripcionDetalle" placeholder="Descripción del detalle" />
+                                </div>
 
-                                    <div class="form-group">
-                                        <label> Presentaci&oacute;n </label>
-                                        <InputText class="form-control" @bind-Value="productosDetalles.Presentacion" placeholder="Tipo de empaquetación" />
-                                    </div>
+                                <div class="form-group">
+                                    <label> Presentaci&oacute;n </label>
+                                    <InputText class="form-control" @bind-Value="productosDetalles.Presentacion" placeholder="Tipo de empaquetación" />
+                                </div>
 
-                                    <div class="form-group">
-                                        <label> Cantidad </label>
-                                        <InputNumber class="form-control" @bind-Value="productosDetalles.Cantidad" />
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label> Precio </label>
-                                        <InputNumber class="form-control" @bind-Value="productosDetalles.Precio" />
-                                    </div>
+                                <div class="form-group">
+                                    <label> Cantidad </label>
+                                    <InputNumber class="form-control" @bind-Value="productosDetalles.Cantidad" />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label> Precio </label>
+                                    <InputNumber class="form-control" @bind-Value="productosDetalles.Precio" />
+                                </div>
 
-                                    <div class="form-group mb-4 mt-4">
-                                        <button type="button" class="btn btn-sm-10 btn-primary" @onclick="AgregarDetalle"><span class="oi oi-plus"></span> Agregar</button>
-                                    </div>
+                                <div class="form-group mb-4 mt-4">
+                                    <button type="button" class="btn btn-sm-10 btn-primary" @onclick="AgregarDetalle"><span class="oi oi-plus"></span> Agregar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <table class="table table-light table-striped">
-                        <thead class="thead">
-                            <tr class="table">
-                                <th>DetalleId</th>
-                                <th>Descripci&oacute;n</th>
-                                <th>Presentaci&oacute;n</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Existencia de empaquetaci&oacute;n</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in producto.ProductosDetalle)
-                            {
-                                <tr>
-                                    <td>@item.DetallesId</td>
-                                    <td>@item.DescripcionDetalle</td>
-                                    <td>@item.Presentacion</td>
-                                    <td>@item.Cantidad</td>
-                                    <td>RD$@item.Precio</td>
-                                    <td>@item.Empaque</td>
-
-                                    <td><span class="btn btn-sm btn-outline-primary oi oi-ban" href="#"  @onclick="@(() => RemoverFila(item))"> Remover</span> </td>
-                                </tr>
-                            }
-                        </tbody>
-
-                    </table>
                 </div>
+
+                <table class="table table-light table-striped">
+                    <thead class="thead">
+                        <tr class="table">
+                            <th>DetalleId</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Presentaci&oacute;n</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Existencia de empaquetaci&oacute;n</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in producto.ProductosDetalle)
+                        {
+                            <tr>
+                                <td>@item.DetallesId</td>
+                                <td>@item.DescripcionDetalle</td>
+                                <td>@item.Presentacion</td>
+                                <td>@item.Cantidad</td>
+                                <td>RD$@item.Precio</td>
+                                <td>@item.Empaque</td>
+
+                                <td><span class="btn btn-sm btn-outline-primary oi oi-ban" href="#"  @onclick="@(() => RemoverFila(item))"> Remover</span> </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
             </div>
+        </div>
 
         <div class="card-footer">
 
@@ -259,7 +259,6 @@
         if (confirmar)
         {
             toast.ShowSuccess("Se puedo guardar el producto correctamente");
-            Nuevo();
         }
         else
         {

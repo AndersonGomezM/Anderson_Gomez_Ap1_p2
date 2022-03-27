@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Anderson_Gomez_Ap1_p2.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220321235420_Producto")]
+    [Migration("20220327201227_Producto")]
     partial class Producto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,9 +19,9 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
 
-            modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.Frutos", b =>
+            modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.Empacados", b =>
                 {
-                    b.Property<int>("FrutosId")
+                    b.Property<int>("EmpacadosId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -40,12 +40,12 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                     b.Property<string>("ProductoEmpacado")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("FrutosId");
+                    b.HasKey("EmpacadosId");
 
-                    b.ToTable("Frutos");
+                    b.ToTable("Empacados");
                 });
 
-            modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.FrutosDetalle", b =>
+            modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.EmpacadosDetalle", b =>
                 {
                     b.Property<int>("DetallesId")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("FrutosId")
+                    b.Property<int?>("EmpacadosId")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Peso")
@@ -65,9 +65,9 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
 
                     b.HasKey("DetallesId");
 
-                    b.HasIndex("FrutosId");
+                    b.HasIndex("EmpacadosId");
 
-                    b.ToTable("FrutosDetalle");
+                    b.ToTable("EmpacadosDetalle");
                 });
 
             modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.Productos", b =>
@@ -137,11 +137,11 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                     b.ToTable("ProductosDetalle");
                 });
 
-            modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.FrutosDetalle", b =>
+            modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.EmpacadosDetalle", b =>
                 {
-                    b.HasOne("Anderson_Gomez_Ap1_p2.Entidades.Frutos", null)
-                        .WithMany("FrutosDetalles")
-                        .HasForeignKey("FrutosId");
+                    b.HasOne("Anderson_Gomez_Ap1_p2.Entidades.Empacados", null)
+                        .WithMany("EmpacadosDetalles")
+                        .HasForeignKey("EmpacadosId");
                 });
 
             modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.ProductosDetalle", b =>
@@ -151,9 +151,9 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                         .HasForeignKey("ProductoId");
                 });
 
-            modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.Frutos", b =>
+            modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.Empacados", b =>
                 {
-                    b.Navigation("FrutosDetalles");
+                    b.Navigation("EmpacadosDetalles");
                 });
 
             modelBuilder.Entity("Anderson_Gomez_Ap1_p2.Entidades.Productos", b =>

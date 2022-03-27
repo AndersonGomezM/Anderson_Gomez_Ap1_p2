@@ -1,8 +1,8 @@
-@page "/Consulta_frutos"
+@page "/C_Empacados"
 
 <PageTitle>Consulta</PageTitle>
 
-<EditForm Model="producto">
+<EditForm Model="empacados">
 
     <div class="card">
 
@@ -39,7 +39,7 @@
         <table class="table table-bordered" >
             <thead class="thead">
                 <tr class="table">
-                    <th>FrutosId</th>
+                    <th>EmpacadosId</th>
                     <th>Concepto</th>
                     <th>Producto Empacado</th>
                     <th>Cantidad</th>
@@ -50,16 +50,16 @@
             </thead>
 
             <tbody>
-                @foreach (var item in frutos)
+                @foreach (var item in empacados)
                 {
                     <tr>
-                        <td>@item.FrutosId</td>
+                        <td>@item.EmpacadosId</td>
                         <td>@item.Concepto</td>
                         <td>@item.ProductoEmpacado</td>
                         <td>@item.Cantidad</td>
                         <td>@item.Peso</td>
-                        <td>@item.Fecha.ToString("dd-MM-yyyy")</td>
-                        <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="Registro_frutos/@item.FrutosId"> Ver </a></td>
+                        <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Empacados/@item.EmpacadosId"> Ver </a></td>
                     </tr>
                 }
             </tbody>
@@ -75,12 +75,12 @@
 
     public string? Criterio { get; set; }
 
-    public List<Frutos> frutos { get; set; } = new List<Frutos>();
+    public List<Empacados> empacados { get; set; } = new List<Empacados>();
 
     public List<Productos> producto { get; set; } = new List<Productos>();
 
     [Inject]
-    public FrutosBLL frutosBLL { get; set; }
+    public EmpacadosBLL empacadosBLL { get; set; }
 
     private void Buscar()
     {
@@ -89,14 +89,14 @@
             switch(filtro)
             {
                 case "1":
-                    frutos = frutosBLL.GetList(e => e.FrutosId == int.Parse(Criterio));
+                    empacados = empacadosBLL.GetList(e => e.EmpacadosId == int.Parse(Criterio));
                     break;
                 case "2":
-                    frutos = frutosBLL.GetList(e => e.Concepto.ToLower().Contains(Criterio.ToLower()));
+                    empacados = empacadosBLL.GetList(e => e.Concepto.ToLower().Contains(Criterio.ToLower()));
                     break;
             }
         }
         else
-            frutos = frutosBLL.GetList(p => true);
+            empacados = empacadosBLL.GetList(p => true);
     }
 }

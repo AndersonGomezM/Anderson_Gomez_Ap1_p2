@@ -10,10 +10,10 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Frutos",
+                name: "Empacados",
                 columns: table => new
                 {
-                    FrutosId = table.Column<int>(type: "INTEGER", nullable: false)
+                    EmpacadosId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Concepto = table.Column<string>(type: "TEXT", nullable: true),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -23,7 +23,7 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Frutos", x => x.FrutosId);
+                    table.PrimaryKey("PK_Empacados", x => x.EmpacadosId);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,7 +47,7 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FrutosDetalle",
+                name: "EmpacadosDetalle",
                 columns: table => new
                 {
                     DetallesId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -55,16 +55,16 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                     Producto = table.Column<string>(type: "TEXT", nullable: true),
                     Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
                     Peso = table.Column<double>(type: "REAL", nullable: false),
-                    FrutosId = table.Column<int>(type: "INTEGER", nullable: true)
+                    EmpacadosId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FrutosDetalle", x => x.DetallesId);
+                    table.PrimaryKey("PK_EmpacadosDetalle", x => x.DetallesId);
                     table.ForeignKey(
-                        name: "FK_FrutosDetalle_Frutos_FrutosId",
-                        column: x => x.FrutosId,
-                        principalTable: "Frutos",
-                        principalColumn: "FrutosId");
+                        name: "FK_EmpacadosDetalle_Empacados_EmpacadosId",
+                        column: x => x.EmpacadosId,
+                        principalTable: "Empacados",
+                        principalColumn: "EmpacadosId");
                 });
 
             migrationBuilder.CreateTable(
@@ -91,9 +91,9 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FrutosDetalle_FrutosId",
-                table: "FrutosDetalle",
-                column: "FrutosId");
+                name: "IX_EmpacadosDetalle_EmpacadosId",
+                table: "EmpacadosDetalle",
+                column: "EmpacadosId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductosDetalle_ProductoId",
@@ -104,13 +104,13 @@ namespace Anderson_Gomez_Ap1_p2.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FrutosDetalle");
+                name: "EmpacadosDetalle");
 
             migrationBuilder.DropTable(
                 name: "ProductosDetalle");
 
             migrationBuilder.DropTable(
-                name: "Frutos");
+                name: "Empacados");
 
             migrationBuilder.DropTable(
                 name: "Productos");

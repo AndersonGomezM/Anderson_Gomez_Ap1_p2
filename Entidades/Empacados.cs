@@ -7,11 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Anderson_Gomez_Ap1_p2.Entidades
 {
-    public class Frutos
+    public class Empacados
     {
         [Key]
 
-        public int FrutosId { get; set; }
+        public int EmpacadosId { get; set; }
 
         public string? Concepto { get; set; }
 
@@ -23,7 +23,7 @@ namespace Anderson_Gomez_Ap1_p2.Entidades
 
         public double Peso { get; set; }
 
-        [ForeignKey("FrutosId")]
-        public virtual List<FrutosDetalle> FrutosDetalles { get; set; } = new List<FrutosDetalle>();
+        [ForeignKey("EmpacadosId")]
+        public virtual List<EmpacadosDetalle> EmpacadosDetalles { get; set; } = new List<EmpacadosDetalle>();
     }
 }
