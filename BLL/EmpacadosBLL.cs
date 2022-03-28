@@ -101,7 +101,6 @@ namespace Anderson_Gomez_Ap1_p2.BLL
                 var empacados = _contexto.Empacados.Find(id);
                 if(empacados != null)
                 {
-                    _contexto.Database.ExecuteSqlRaw($"Delete FROM EmpacadosDetalle where EmpacadosId={empacados.EmpacadosId}");
                     _contexto.Empacados.Remove(empacados);
                     confirmar = _contexto.SaveChanges() > 0;
                 }
